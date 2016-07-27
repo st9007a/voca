@@ -1,15 +1,28 @@
 <html>
 	<head>
+		<link rel="stylesheet" type="text/css" href="Semantic-UI-master/dist/semantic.min.css">
 		<script src="/socket.io/socket.io.js"></script>
 		<script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+		<script src="Semantic-UI-master/dist/semantic.min.js"></script>
 		<script src="client.js"></script>
 		<script src="https://apis.google.com/js/client.js?onload=init"></script>
+		<script async src="https://www.youtube.com/iframe_api"></script>
+		
 	</head>
 	<body>
 		<div>
-			<input id="keyword"/>
-			<button id="submit">submit</button>
+			<div class="ui search">
+			    <div class="ui icon input">
+					<input class="prompt" type="text" placeholder="Search countries...">
+					<i class="search icon"></i>
+			    </div>
+			    <div class="results"></div>
+			</div>
+			<button class="ui icon button" id="submit">
+				<i class="search icon"></i>
+			</button>
 		</div>
-	<!--AIzaSyBgZwRQdlJDhd7RF9JvErgPf845pXxutcA-->																																																																																																																																    </script>
+		<div id="result_list">
+		</div>
 	</body>
 </html>
