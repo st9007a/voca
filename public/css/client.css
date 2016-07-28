@@ -1,0 +1,22 @@
+#search_field{
+	margin-top: 10vh;
+	margin-left: 5vw;
+}
+#keyword{
+	width: 52vw;
+}
+
+#result_list{
+	display: none;
+	margin-left: 5vw;
+	margin-top: 5vw;
+}
+h2{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow:ellipsis;
+}
+.youtube_iframe{
+	width: 26vw;
+	height: 15vw;
+}
