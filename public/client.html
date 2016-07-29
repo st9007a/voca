@@ -12,12 +12,15 @@
 		<script async src="https://www.youtube.com/iframe_api"></script>
 	</head>
 	<body>
+		<h1 id="title">V O C A</h1>
+			
 		<div id="search_field">
 			<div class="ui grid">
 				<div class="nine wide column">
 					<div class="ui search">
 						<div class="ui icon input">
-							<input id="keyword" class="prompt" type="text" placeholder="youtube...">
+							<input id="keyword" class="prompt" type="text" 
+							placeholder="Search youtube video...">
 							<i class="search icon"></i>
 						</div>
 						<div class="results"></div>
@@ -31,121 +34,206 @@
 			</div>
 		</div>
 		
+		<div class="ui secondary pointing menu">
+			<a class="item active" id="room_menu">
+				Room
+			</a>
+		    <a class="item" id="search_menu">
+				Search
+		    </a>
+		    <a class="item" id="playlist_menu">
+				Play List
+		    </a>		
+		</div>
 		
-		<div id="result_list">
-			<div class="ui three column grid">
-				<div class="row">
-					<div class="column">
-						<div id="iframe0" class="ui segment">
+		<div id="result_list" class="panel">
+			<div id="result">
+				<div class="ui three column grid">
+					<div class="row">
+						<div class="column">
+							<div id="iframe0" class="ui segment">
+							</div>
+						</div>
+						<div class="column">
+							<h2 id="iframe_title0" class="iframe_title"></h2>
+							<button class="ui button add" data-list=0>加入播放清單</button>
+							<button class="ui button insert" data-list=0>插播為下一首</button>
 						</div>
 					</div>
-					<div class="column">
-						<h2 id="iframe_title0"></h2>
-						<button class="ui button add" data-list=0>加入播放清單</button>
-						<button class="ui button insert" data-list=0>插播為下一首</button>
-					</div>
-				</div>
-				<div class="row">
-					<div class="column">
-						<div id="iframe1" class="ui segment">
+					<div class="row">
+						<div class="column">
+							<div id="iframe1" class="ui segment">
+							</div>
+						</div>
+						<div class="column">
+							<h2 id="iframe_title1" class="iframe_title"></h2>
+							<button class="ui button add" data-list=1>加入播放清單</button>
+							<button class="ui button insert" data-list=1>插播為下一首</button>
 						</div>
 					</div>
-					<div class="column">
-						<h2 id="iframe_title1"></h2>
-						<button class="ui button add" data-list=1>加入播放清單</button>
-						<button class="ui button insert" data-list=1>插播為下一首</button>
-					</div>
-				</div>
-				<div class="row">
-					<div class="column">
-						<div id="iframe2" class="ui segment">
+					<div class="row">
+						<div class="column">
+							<div id="iframe2" class="ui segment">
+							</div>
+						</div>
+						<div class="column">
+							<h2 id="iframe_title2" class="iframe_title"></h2>
+							<button class="ui button add" data-list=2>加入播放清單</button>
+							<button class="ui button insert" data-list=2>插播為下一首</button>
 						</div>
 					</div>
-					<div class="column">
-						<h2 id="iframe_title2"></h2>
-						<button class="ui button add" data-list=2>加入播放清單</button>
-						<button class="ui button insert" data-list=2>插播為下一首</button>
-					</div>
-				</div>
-				<div class="row">
-					<div class="column">
-						<div id="iframe3" class="ui segment">
+					<div class="row">
+						<div class="column">
+							<div id="iframe3" class="ui segment">
+							</div>
+						</div>
+						<div class="column">
+							<h2 id="iframe_title3" class="iframe_title"></h2>
+							<button class="ui button add" data-list=3>加入播放清單</button>
+							<button class="ui button insert" data-list=3>插播為下一首</button>
 						</div>
 					</div>
-					<div class="column">
-						<h2 id="iframe_title3"></h2>
-						<button class="ui button add" data-list=3>加入播放清單</button>
-						<button class="ui button insert" data-list=3>插播為下一首</button>
-					</div>
-				</div>
-				<div class="row">
-					<div class="column">
-						<div id="iframe4" class="ui segment">
+					<div class="row">
+						<div class="column">
+							<div id="iframe4" class="ui segment">
+							</div>
+						</div>
+						<div class="column">
+							<h2 id="iframe_title4" class="iframe_title"></h2>
+							<button class="ui button add" data-list=4>加入播放清單</button>
+							<button class="ui button insert" data-list=4>插播為下一首</button>
 						</div>
 					</div>
-					<div class="column">
-						<h2 id="iframe_title4"></h2>
-						<button class="ui button add" data-list=4>加入播放清單</button>
-						<button class="ui button insert" data-list=4>插播為下一首</button>
-					</div>
-				</div>
-				<div class="row">
-					<div class="column">
-						<div id="iframe5" class="ui segment">
+					<div class="row">
+						<div class="column">
+							<div id="iframe5" class="ui segment">
+							</div>
+						</div>
+						<div class="column">
+							<h2 id="iframe_title5" class="iframe_title"></h2>
+							<button class="ui button add" data-list=5>加入播放清單</button>
+							<button class="ui button insert" data-list=5>插播為下一首</button>
 						</div>
 					</div>
-					<div class="column">
-						<h2 id="iframe_title5"></h2>
-						<button class="ui button add" data-list=5>加入播放清單</button>
-						<button class="ui button insert" data-list=5>插播為下一首</button>
-					</div>
-				</div>
-				<div class="row">
-					<div class="column">
-						<div id="iframe6" class="ui segment">
+					<div class="row">
+						<div class="column">
+							<div id="iframe6" class="ui segment">
+							</div>
+						</div>
+						<div class="column">
+							<h2 id="iframe_title6" class="iframe_title"></h2>
+							<button class="ui button add" data-list=6>加入播放清單</button>
+							<button class="ui button insert" data-list=6>插播為下一首</button>
 						</div>
 					</div>
-					<div class="column">
-						<h2 id="iframe_title6"></h2>
-						<button class="ui button add" data-list=6>加入播放清單</button>
-						<button class="ui button insert" data-list=6>插播為下一首</button>
-					</div>
-				</div>
-				<div class="row">
-					<div class="column">
-						<div id="iframe7" class="ui segment">
+					<div class="row">
+						<div class="column">
+							<div id="iframe7" class="ui segment">
+							</div>
+						</div>
+						<div class="column">
+							<h2 id="iframe_title7" class="iframe_title"></h2>
+							<button class="ui button add" data-list=7>加入播放清單</button>
+							<button class="ui button insert" data-list=7>插播為下一首</button>
 						</div>
 					</div>
-					<div class="column">
-						<h2 id="iframe_title7"></h2>
-						<button class="ui button add" data-list=7>加入播放清單</button>
-						<button class="ui button insert" data-list=7>插播為下一首</button>
-					</div>
-				</div>
-				<div class="row">
-					<div class="column">
-						<div id="iframe8" class="ui segment">
+					<div class="row">
+						<div class="column">
+							<div id="iframe8" class="ui segment">
+							</div>
+						</div>
+						<div class="column">
+							<h2 id="iframe_title8" class="iframe_title"></h2>
+							<button class="ui button add" data-list=8>加入播放清單</button>
+							<button class="ui button insert" data-list=8>插播為下一首</button>
 						</div>
 					</div>
-					<div class="column">
-						<h2 id="iframe_title8"></h2>
-						<button class="ui button add" data-list=8>加入播放清單</button>
-						<button class="ui button insert" data-list=8>插播為下一首</button>
-					</div>
-				</div>
-				<div class="row">
-					<div class="column">
-						<div id="iframe9" class="ui segment">
+					<div class="row">
+						<div class="column">
+							<div id="iframe9" class="ui segment">
+							</div>
 						</div>
-					</div>
-					<div class="column">
-						<h2 id="iframe_title9"></h2>
-						<button class="ui button add" data-list=9>加入播放清單</button>
-						<button class="ui button insert" data-list=9>插播為下一首</button>
+						<div class="column">
+							<h2 id="iframe_title9" class="iframe_title"></h2>
+							<button class="ui button add" data-list=9>加入播放清單</button>
+							<button class="ui button insert" data-list=9>插播為下一首</button>
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-	
+		
+		<div id="play_list" class="panel">
+			<marquee scrollamount=7><h1 id="title_play_now">目前沒有曲目</h1></marquee>
+			<div id="control_btn">
+				<button class="ui labeled icon button" id="play_video">
+					<i class="play icon"></i>
+					Play
+				</button>
+				<button class="ui labeled icon button" id="pause_video">
+					<i class="pause icon"></i>
+					Pause
+				</button>	
+				<button class="ui right labeled icon button" id="next_video">
+					<i class="right arrow icon"></i>
+					Next
+				</button>
+			</div>
+			
+			<table class="ui fixed table" >
+			    <thead>
+					<tr>
+						<th>播放順序</th>
+						<th>曲名</th>
+					</tr>
+				</thead>
+			    <tbody id ="playlist_table">
+					<!--<tr >
+						<td>now</td>
+						<td>Approved</td>
+					</tr>-->
+			    </tbody>
+			</table>
+		</div>
+		
+		<div id="control_bar">
+			<div class="ui message">
+				<button class="ui labeled icon button">
+					<i class="play icon"></i>
+					Play
+				</button>
+				<button class="ui labeled icon button">
+					<i class="pause icon"></i>
+					Pause
+				</button>	
+				<button class="ui right labeled icon button">
+					<i class="right arrow icon"></i>
+					Next
+				</button>
+			</div>
+		</div>
+		
+		<div id="message_list">
+			<div class="ui message box" id="msg_box4">
+				<div class="header msg2">加入播放清單</div>
+				<p class="message content2">test</p>
+			</div>
+			<div class="ui message box" id="msg_box3">
+				<div class="header msg2">加入播放清單</div>
+				<p class="message content2">test</p>
+			</div>
+			<div class="ui message box" id="msg_box2">
+				<div class="header msg2">加入播放清單</div>
+				<p class="message content2">test</p>
+			</div>
+			<div class="ui message box" id="msg_box1">
+				<div class="header msg1">加入播放清單</div>
+				<p class="message content1">test</p>
+			</div>
+			<div class="ui message box" id="msg_box0">
+				<div class="header msg0">加入播放清單</div>
+				<p class="message content0">test</p>
+			</div>
+		</div>
 	</body>
 </html>

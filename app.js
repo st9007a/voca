@@ -21,6 +21,18 @@ nsp.on("connection", function(socket){
 	socket.on("insert_youtube_id", function(data){
 		socket.broadcast.emit("insert_youtube_id", data);
 	});
+	
+	// socket.on("request_video_list", function(data){
+		// socket.broadcast.emit("request_video_list", data);
+	// });
+	
+	socket.on("control_video", function(data){
+		socket.broadcast.emit("control_video", data);
+	});
+	
+	socket.on("video_list", function(data){
+		socket.broadcast.emit("video_list", data);
+	});
 });
 
 app.get("/", function(req, res){
