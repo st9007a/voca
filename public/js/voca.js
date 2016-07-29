@@ -1,12 +1,31 @@
 $(function(){
-	
-	var socket = io("/mbilab");
+		
+	var socket = io();
 	var player;
 	var video_queue = [];
-	var video_now;
+	var video_now = -1;
+	
+	if(localStorage.getItem("room") != undefined){
+		socket.emit("voca_join", localStorage.getItem("room"));
+	}
+	else{
+		$('.ui.basic.modal').modal('show');
+	}
+	
+	socket.on("voca_join", function(data){
+		if(data.name == undefined){
+			$("#error_msg").html(data);
+		}
+		else{
+			$("#error_msg").html("");
+			$('.ui.basic.modal').modal('hide');
+			localStorage.setItem("room", data.name);
+		}
+	});
+	
 	
 	socket.on("send_youtube_id", function(data){
-		
+		console.log("player");
 		if(player == undefined){
 			create_youtube_iframe(data.id);
 			video_now = data;
@@ -21,6 +40,16 @@ $(function(){
 				video_queue.push(data);
 			}
 		}
+		
+		var video_list = {now: -1, list: -1};
+		if(video_queue[0] != undefined){
+			video_list.list = video_queue;			
+		}
+		if(video_now != -1){
+			video_list.now = video_now;
+		}
+		
+		socket.emit("video_list", video_list);
 		
 	});
 	
@@ -42,6 +71,16 @@ $(function(){
 				}
 				video_queue = new_video_queue;
 			}
+			
+			var video_list = {now: -1, list: -1};
+			if(video_queue[0] != undefined){
+				video_list.list = video_queue;			
+			}
+			if(video_now != -1){
+				video_list.now = video_now;
+			}
+			
+			socket.emit("video_list", video_list);
 		}
 		
 	});
@@ -71,16 +110,30 @@ $(function(){
 		}
 	});
 	
+	socket.on("control_volume", function(data){
+		if(player != undefined){
+			player.setVolume(data);
+		}
+	});
 	
-	// socket.on("request_video_list", function(data){
-		// var video_list;
-		// if(video_queue[0] != undefined){
-			// video_list.now = video_now;
-			// video_list.list = video_queue;
-		// }
+	socket.on("request_video_list", function(data){
+		var video_list = {now: -1, list: -1};
+		if(video_queue[0] != undefined){			
+			video_list.list = video_queue;
+		}
+		if(video_now != -1){
+			video_list.now = video_now;
+		}
 		
-		// socket.emit("video_list", video_list);
-	// });
+		socket.emit("video_list", video_list);
+	});
+	
+	$("#ok_room_name").click(function(){
+		if($("room_name").val() != ""){
+			socket.emit("voca_join", $("#room_name").val());
+		}
+	});
+	
 	
 	function create_youtube_iframe(data){
 		player = new YT.Player("player", {
@@ -113,6 +166,9 @@ $(function(){
 					video_now = video_queue.shift();
 					video_list.now = video_now;
 					video_list.list = video_queue;
+				}
+				else{
+					video_now = -1;
 				}
 				
 				socket.emit("video_list", video_list);

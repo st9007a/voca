@@ -1,36 +1,94 @@
 $(function(){
 	
 	
-	var socket = io("/mbilab");
+	var socket = io();
 	var youtube_data = [];	
 	var message_queue = [0,1,2,3,4];
 	
+	if(localStorage.getItem("room") != undefined){
+		socket.emit("join_room", localStorage.getItem("room"));
+	}
+	
+		
 	socket.on("request", function(data){		
 		$('.ui.search').search({source: data});
 	});
-	
-	
-	$(".item").click(function(){
-		$(".item").attr("class", "item");
-		$(this).attr("class", "item active");
 		
-		
-		switch($(this).attr("id")){
-			case "search_menu" :
-				$(".panel").hide();
-				$("#result_list").show();
-				break;
-			case "playlist_menu" : 
-				$(".panel").hide();
-				$("#play_list").show();
-				break;
-			default:
-			
+	socket.on("room", function(data){
+		if(data.name != undefined){
+			$("#input_room_name").val("");
+			$("#room").show();
+			$("#join_room_form").hide();
+			$("#error_msg").html("");
+			$("#room_name").html("Room : "+data.name);
+			$("#num_of_people").html("Online users : "+data.users);
+			localStorage.setItem("room", data.name);
+			socket.emit("request_video_list", true);
+		}
+		else{
+			$("#error_msg").html(data);
 		}
 	});
 	
+	socket.on("someone_join", function(data){
+		$("#num_of_people").html("Online users : "+data.users);
+	});
+	
+	$(".ui.range").range({
+		min: 0,
+		max: 10,
+		start: 10,
+		onChange: function(val){
+			socket.emit("control_volume", val*10);
+		},
+	});	
+	
+	$(".item").click(function(){
+		
+		if(localStorage.getItem("room") != undefined){
+		
+			$(".item").attr("class", "item");
+			$(this).attr("class", "item active");
+			
+			
+			switch($(this).attr("id")){
+				case "search_menu" :
+					$(".panel").hide();
+					$("#result_list").show();
+					break;
+				case "playlist_menu" : 
+					$(".panel").hide();
+					$("#play_list").show();
+					break;
+				default:
+					$(".panel").hide();
+					$("#room_list").show();
+			}
+		}
+	});
+	
+	$("#create_room").click(function(){
+		if($("#input_room_name").val() != ""){
+			socket.emit("create_room", $("#input_room_name").val());
+		}
+	});
+	
+	$("#join_room").click(function(){
+		if($("#input_room_name").val() != ""){
+			socket.emit("join_room", $("#input_room_name").val());
+		}
+	});
+	
+	$("#leave_room").click(function(){
+		socket.emit("leave_room", localStorage.getItem("room"));
+		window.localStorage.clear();
+		$("#room").hide();
+		$("#join_room_form").show();
+		$("#error_msg").html("");
+	});
+	
 	$("#submit").click(function(){ 
-		if($("#keyword").val() != ""){
+		if($("#keyword").val() != "" && localStorage.getItem("room") != undefined){
 			
 			$(".item").attr("class", "item");
 			$("#search_menu").attr("class", "item active");
@@ -149,7 +207,8 @@ $(function(){
 	});
 	
 	socket.on("video_list", function(data){
-		var play_now_description = (data.now != -1) ? "現在播放 : "+data.now.title : "目前沒有曲目";
+		
+		var play_now_description = (data.now.title != undefined) ? "現在播放 : "+ data.now.title.toString() : "目前沒有曲目";
 		$("#title_play_now").html(play_now_description);
 		
 		if(data.list != -1){

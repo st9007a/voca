@@ -14,6 +14,17 @@
 	margin-left:5vw;
 	width: 52vw;
 }
+#room_list{
+	margin-left: 5vw;
+	margin-top: 5vw;
+	width: 52vw;
+}
+#input_room_name{
+	width: 20vw;
+}
+#room{
+	display: none
+}
 #play_list{
 	margin-left: 5vw;
 	margin-top: 5vw;
@@ -35,6 +46,11 @@
 #control_btn{
 	margin-left: 10vw;
 	margin-top: 5vh;
+}
+.ui.range{
+	margin-left: 5vw;
+	margin-top: 3vh;
+	width : 35vw;
 }
 .iframe_title{
     white-space: nowrap;

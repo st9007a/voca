@@ -2,6 +2,7 @@
 <html>
 	<head>
 		<link rel="stylesheet" type="text/css" href="Semantic-UI-master/dist/semantic.min.css">
+		<link rel="stylesheet" type="text/css" href="css/voca.css">
 		<script src="/socket.io/socket.io.js"></script>
 		<script src="//code.jquery.com/jquery-2.1.3.min.js"></script>
 		<script src="Semantic-UI-master/dist/semantic.min.js"></script>
@@ -9,8 +10,37 @@
 		<script src="js/voca.js"></script>
 	</head>
 	<body>
-		<div id="player">
+	
+		<div class="ui basic modal">
+			<div id="input_room_name">
+				<h1 id="error_msg"></h1>
+				<div class="ui input">
+					<input type="text" id="room_name" placeholder="Input the room name">
+				</div>
+				<div class="ui basic inverted button" id="ok_room_name">
+					OK
+				</div>
+			</div>
 		</div>
+		
+		
+		<h1 id="title">V O C A</h1>
+		
+		
+		<div class="ui grid" id="youtube">
+			<div class="nine wide column">
+				<div class="ui segment" id="youtube_iframe">
+					<div id="player"></div>
+				</div>
+			</div>
+			<div class="six wide column" id="youtube_content">
+				<h1 id="youtube_title"></h1>
+			</div>
+		</div>
+		
+		
+		
+		
 			
 	</body>
 </html>

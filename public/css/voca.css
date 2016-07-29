@@ -1,0 +1,23 @@
+#title{
+	margin-top: 3vh;
+	margin-left: 5vw;
+	font-size: 30px;
+}
+#input_room_name{
+	z-index: 2;
+	margin-left: 20vw;
+}
+#ok_room_name{
+	margin-left: 2vw;
+}
+#youtube{
+	margin-left: 5vw;
+	margin-top: 3vw;
+}
+#youtube_content{
+	word-break: break-word;
+}
+#youtube_iframe{
+	width: 600px;
+	height: 350px;
+}
