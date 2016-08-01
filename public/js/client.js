@@ -81,6 +81,8 @@ $(function(){
 	
 	$("#leave_room").click(function(){
 		socket.emit("leave_room", localStorage.getItem("room"));
+		$("#playlist_table").html("");
+		$("#title_play_now").html("目前沒有曲目");
 		window.localStorage.clear();
 		$("#room").hide();
 		$("#join_room_form").show();

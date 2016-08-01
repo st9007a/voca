@@ -9,6 +9,14 @@ $(function(){
 		socket.emit("voca_join", localStorage.getItem("room"));
 	}
 	else{
+		$('.ui.basic.modal').modal('setting',{
+			onHidden : function(){
+				console.log("hide");
+				if(localStorage.getItem("room") == undefined){
+					$('.ui.basic.modal').modal('show');
+				}
+			},
+		});
 		$('.ui.basic.modal').modal('show');
 	}
 	
@@ -17,9 +25,10 @@ $(function(){
 			$("#error_msg").html(data);
 		}
 		else{
+			localStorage.setItem("room", data.name);
 			$("#error_msg").html("");
 			$('.ui.basic.modal').modal('hide');
-			localStorage.setItem("room", data.name);
+			
 		}
 	});
 	

@@ -31,7 +31,14 @@ io.on("connection", function(socket){
 					break;
 				}
 			}
-		}	
+		}
+
+		//無人在房間則刪除房間,
+		for(var i=0;i<room.length;i++){
+			if(room[i].users == 0 && !room[i].voca){
+				room.splice(i, 1);
+			}
+		}
 	});
 	
 	socket.emit("request", regist_content);
