@@ -91,7 +91,9 @@ $(function(){
 	
 	$("#submit").click(function(){ 
 		if($("#keyword").val() != "" && localStorage.getItem("room") != undefined){
-			
+
+			socket.emit("keyword", $("#keyword").val());
+
 			$(".item").attr("class", "item");
 			$("#search_menu").attr("class", "item active");
 			
@@ -249,3 +251,4 @@ function init(){
 	});
 	//console.log("init");
 }
+// # vi:nu:wrap

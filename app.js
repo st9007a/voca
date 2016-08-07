@@ -2,17 +2,27 @@ var app = require("express")();
 var express = require("express");
 var http = require("http").Server(app);
 var io = require("socket.io")(http);
-var regist_content = require('./registfile.json');
+var jsonfile = require("jsonfile");
 var port = 8072;
 var room = [];
+var keyword;
 
 http.listen(port);
 
 app.use(express.static(__dirname + "/public"));
 
+jsonfile.readFile("keyword.json", function(err, obj){
+	keyword = obj;
+});
 
 io.on("connection", function(socket){
 	
+	jsonfile.readFile("keyword.json", function(err, obj){
+		if(err) 
+			console.log(err);
+		else
+			socket.emit("request", obj);
+	});
 
 	socket.on('disconnect', function () {
 		if(socket.user == "client"){
@@ -33,16 +43,13 @@ io.on("connection", function(socket){
 			}
 		}
 
-		//無人在房間則刪除房間,
-		for(var i=0;i<room.length;i++){
-			if(room[i].users == 0 && !room[i].voca){
-				room.splice(i, 1);
-			}
-		}
+		someone_leave();
 	});
-	
-	socket.emit("request", regist_content);
-	
+
+	socket.on("keyword", function(data){
+		keyword.push({title:data});
+	});
+
 	socket.on("voca_join", function(data){
 		
 		var is_exist = false;
@@ -73,7 +80,15 @@ io.on("connection", function(socket){
 		}
 		
 	});
-	
+
+	socket.on("voca_leave", function(data){
+		for(var i=0;i<room.length;i++){
+			if(room[i].name == data){
+				room[i].voca = false;
+			}
+		}
+		someone_leave();
+	});
 	socket.on("create_room", function(data){
 		
 		var is_exist = false;
@@ -143,7 +158,7 @@ io.on("connection", function(socket){
 				break;
 			}
 		}
-		
+		someone_leave();
 		
 	});
 	
@@ -178,3 +193,20 @@ app.get("/", function(req, res){
 app.get("/voca", function(req, res){
 	res.sendfile("public/voca.html");
 });
+
+function someone_leave(){	
+	for(var i=0;i<room.length;i++){
+		if(room[i].users == 0 && !room[i].voca){
+			room.splice(i, 1);
+		}
+	}
+}
+setInterval(function(){
+	jsonfile.writeFile("keyword.json", keyword, function(err){
+	    if(err) console.log(err);
+	})
+}, 3000);
+app.get("/room", function(req, res){
+	res.send(room);
+});
+//# vi:nu:wrap

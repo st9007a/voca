@@ -5,39 +5,68 @@ $(function(){
 	var video_queue = [];
 	var video_now = -1;
 	
-	if(localStorage.getItem("room") != undefined){
-		socket.emit("voca_join", localStorage.getItem("room"));
+	if(sessionStorage.getItem("room") != undefined){
+		socket.emit("voca_join", sessionStorage.getItem("room"));
 	}
 	else{
 		$('.ui.basic.modal').modal('setting',{
 			onHidden : function(){
-				console.log("hide");
-				if(localStorage.getItem("room") == undefined){
-					$('.ui.basic.modal').modal('show');
+				if(sessionStorage.getItem("room") == undefined){
+					$(".ui.basic.modal").modal("show");
 				}
 			},
 		});
 		$('.ui.basic.modal').modal('show');
 	}
 	
+	$("#leave_room").click(function(){
+		socket.emit("voca_leave", sessionStorage.getItem("room"));
+		window.sessionStorage.clear();
+		$("#room_info").hide();
+		$("#room_name_description").html("");
+
+		$(".ui.basic.modal").modal("show");
+		$('.ui.basic.modal').modal('setting',{
+			onHidden : function(){
+				if(sessionStorage.getItem("room") == undefined){
+					$(".ui.basic.modal").modal("show");
+				}
+			},
+		});
+	});
+
 	socket.on("voca_join", function(data){
 		if(data.name == undefined){
 			$("#error_msg").html(data);
+			
+			window.sessionStorage.clear();
+
+			$(".ui.basic.modal").modal("show");
+			$('.ui.basic.modal').modal('setting',{
+				onHidden : function(){
+					if(sessionStorage.getItem("room") == undefined){
+						$(".ui.basic.modal").modal("show");
+					}
+				},
+			});
 		}
 		else{
-			localStorage.setItem("room", data.name);
+			sessionStorage.setItem("room", data.name);
 			$("#error_msg").html("");
 			$('.ui.basic.modal').modal('hide');
+			$("#room_info").show();
+			$("#room_name_description").html("Room : "+data.name);
 			
 		}
 	});
 	
 	
 	socket.on("send_youtube_id", function(data){
-		console.log("player");
+		console.log("add a video");
 		if(player == undefined){
 			create_youtube_iframe(data.id);
 			video_now = data;
+			$("#youtube_title").html(data.title);
 		}
 		else{
 			if(player.getPlayerState() == 0){
@@ -66,6 +95,7 @@ $(function(){
 		if(player == undefined){
 			create_youtube_iframe(data.id);
 			video_now = data;
+			$("#youtube_title").html(data.title);
 		}
 		else{
 			if(player.getPlayerState() == 0){
@@ -113,6 +143,7 @@ $(function(){
 					video_now = video_queue.shift();
 					video_list.now = video_now;
 					video_list.list = video_queue;
+					$("#youtube_title").html(video_now.title);
 				}
 				
 				socket.emit("video_list", video_list);
@@ -172,9 +203,13 @@ $(function(){
 				var video_list = {now: -1, list: -1};
 			    if(video_queue[0] != undefined){
 					player.loadVideoById(video_queue[0].id);
+					$("#youtube_title").html(video_queue[0].title);
 					video_now = video_queue.shift();
 					video_list.now = video_now;
 					video_list.list = video_queue;
+					$("#youtube_title").html(video_now.title);
+					console.log(video_now);
+					//show video title
 				}
 				else{
 					video_now = -1;
@@ -188,3 +223,5 @@ $(function(){
 		}
 	}
 })
+
+// # vi:nu:wrap

@@ -18,6 +18,7 @@
   "homepage": "https://github.com/st9007a/voca#readme",
   "dependencies": {
     "express": "^4.14.0",
+    "jsonfile": "^2.3.1",
     "socket.io": "^1.4.8"
   }
 }

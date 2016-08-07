@@ -3,6 +3,12 @@
 	margin-left: 5vw;
 	font-size: 30px;
 }
+#room_info{
+	display: none;
+	right: 5vw;
+	top: 3vh;
+	position: fixed;
+}
 #input_room_name{
 	z-index: 2;
 	margin-left: 20vw;
