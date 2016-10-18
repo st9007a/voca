@@ -1,1 +1,3 @@
 # voca
+
+echo [] > keyword.json
