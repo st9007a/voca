@@ -224,4 +224,4 @@ $(function(){
 	}
 })
 
-// # vi:nu:wrap
+// # vi:nu:et:ts=2:sw=2

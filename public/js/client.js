@@ -1,7 +1,7 @@
 $(function(){
 
   var socket = io();
-  var youtube_data = [];	
+  var youtube_data = [];
   var message_queue = [0,1,2,3,4];
 
   if(localStorage.getItem("room") != undefined){
@@ -85,7 +85,7 @@ $(function(){
     $("#join_room_form").show();
     $("#error_msg").html("");
   });
-  function search(){ 
+  function search(){
     if($("#keyword").val() != "" && localStorage.getItem("room") != undefined){
 
       socket.emit("keyword", $("#keyword").val());
@@ -166,7 +166,7 @@ $(function(){
       title: youtube_data[list].title,
     });
 
-    if(message_queue.length != 0){ 
+    if(message_queue.length != 0){
       var num = message_queue.shift();
       $(".msg"+num).html("加入播放清單");
       $(".message.content"+num).html("將"+youtube_data[list].title+"加入播放清單");
